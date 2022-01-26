@@ -21,6 +21,7 @@ public class Grid {
     static private int headY = 4;
     static private ArrayList<Integer> queueID;
     static private ArrayList<Point2D> queuePoints;
+    static boolean begin = false;
 
     static int[][] grid;
     // 0 = empty ; 1 = head ; 10... = body ; 9 = food
@@ -80,8 +81,8 @@ public class Grid {
 
         }
 
-        //Check for collision:
-        if (grid[headY][headX]>=10){
+        // Check for collision:
+        if (grid[headY][headX] >= 10) {
             collision();
         }
 
@@ -90,6 +91,7 @@ public class Grid {
 
         // Adjust the queue points:
         if (queueID.size() > 0) {
+
             for (int i = queueID.size() - 1; i > 0; i--) {
                 queuePoints.set(i, queuePoints.get(i - 1));
             }
@@ -102,25 +104,32 @@ public class Grid {
             int x = (int) queuePoints.get(i).getX();
             int val = queueID.get(i);
 
-            if (i == queueID.size() - 1) {
+
+            if (i == queueID.size() - 1 && begin) {
                 grid[y][x] = 0;
+                System.out.println("remove");
+                
+
             } else {
+                begin=true;
                 grid[y][x] = val;
+                System.out.println(val);
+
             }
 
         }
 
     }
 
-    public static void collision(){
+    public static void collision() {
         JFrame frame = new JFrame("Collision");
-        JOptionPane.showMessageDialog(frame,"Game Over");
+        JOptionPane.showMessageDialog(frame, "Game Over");
         System.exit(0);
     }
 
-    public static void playAudio(){
-        try{
-            
+    public static void playAudio() {
+        try {
+
             File file = new File("C:\\Users\\owenf\\Desktop\\Snake\\src\\eat.wav");
             AudioInputStream as = AudioSystem.getAudioInputStream(file);
             AudioFormat format = as.getFormat();
@@ -128,8 +137,8 @@ public class Grid {
             Clip clip = (Clip) AudioSystem.getLine(info);
             clip.open(as);
             clip.start();
-            
-        } catch (Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -138,8 +147,8 @@ public class Grid {
 
         int x = rand.nextInt((int) size.getWidth());
         int y = rand.nextInt((int) size.getHeight());
-        
-        while (grid[y][x]!=0) {
+
+        while (grid[y][x] != 0) {
             x = rand.nextInt((int) size.getWidth());
             y = rand.nextInt((int) size.getHeight());
         }
