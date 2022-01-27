@@ -89,6 +89,14 @@ public class Grid {
         // Place new head
         grid[headY][headX] = 1;
 
+        // get old Tail point:
+        if (queuePoints.size() > 0) {
+            int tailX = (int) queuePoints.get(queuePoints.size() - 1).getX();
+            int tailY = (int) queuePoints.get(queuePoints.size() - 1).getY();
+
+            grid[tailY][tailX]=0;
+        }
+
         // Adjust the queue points:
         if (queueID.size() > 0) {
 
@@ -103,19 +111,17 @@ public class Grid {
             int y = (int) queuePoints.get(i).getY();
             int x = (int) queuePoints.get(i).getX();
             int val = queueID.get(i);
-
-
-            if (i == queueID.size() - 1 && begin) {
+            grid[y][x] = val;
+            /*if (i == queueID.size() - 1) {
                 grid[y][x] = 0;
-                System.out.println("remove");
-                
+                System.out.println("Remove Tail");
 
             } else {
-                begin=true;
-                grid[y][x] = val;
-                System.out.println(val);
+                begin = true;
 
-            }
+                grid[y][x] = val;
+
+            }*/
 
         }
 

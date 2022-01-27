@@ -51,6 +51,9 @@ public class GuiEnvironment extends JPanel implements KeyListener {
                 if (Grid.getGrid()[j][i]==9){
                     g.setColor(Color.RED);
                     g.fillRoundRect(j*50, i*(50), 50 , 50,25,25);
+                    g.setColor(snakeCol);
+                    g.fillRoundRect(j*50, i*(50), 20 , 20,25,25);
+
                 } else if(Grid.getGrid()[j][i]==1){
                     g.setColor(snakeCol);
                     g.fillOval(j*50, i*(50), 50 , 50);
